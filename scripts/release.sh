@@ -2,7 +2,7 @@
 
 set -e
 
-TAG=$(python -c 'from probability-concept-flow.version import VERSION; print("v" + VERSION)')
+TAG=$(python -c 'from probconcept.version import VERSION; print("v" + VERSION)')
 
 read -p "Creating new release for $TAG. Do you want to continue? [Y/n] " prompt
 

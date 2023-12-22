@@ -1,23 +1,23 @@
 Installation
 ============
 
-**my-package** supports Python >= 3.8.
+**probconcept** supports Python >= 3.8.
 
 ## Installing with `pip`
 
-**my-package** is available [on PyPI](https://pypi.org/project/my-package/). Just run
+**probconcept** is available [on PyPI](https://pypi.org/project/probconcept/). Just run
 
 ```bash
-pip install my-package
+pip install probconcept
 ```
 
 ## Installing from source
 
-To install **my-package** from source, first clone [the repository](https://github.com/allenai/python-package-template):
+To install **probconcept** from source, first clone [the repository](https://github.com/frank-engel-usgs/probconcept):
 
 ```bash
-git clone https://github.com/allenai/python-package-template.git
-cd python-package-template
+git clone https://github.com/frank-engel-usgs/probconcept.git
+cd probconcept
 ```
 
 Then run

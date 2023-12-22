@@ -9,7 +9,7 @@ on:
     branches:
       - main
     paths:
-      - 'probability-concept-flow/**'
+      - 'probconcept/**'
 
 jobs:
   changelog:
