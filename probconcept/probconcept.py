@@ -1,10 +1,11 @@
 import logging
 import warnings
+
 import lmfit
 import numpy as np
 import pybroom as br
 from lmfit import Model
-from scipy.stats.distributions import t, chi2
+from scipy.stats.distributions import chi2, t
 
 
 class ProbConceptFit(object):

@@ -1,6 +1,8 @@
 import unittest
+
 import numpy as np
 import pandas as pd
+
 from probconcept.probconcept import ProbConceptFit, insert_row_in_dataframe
 
 
