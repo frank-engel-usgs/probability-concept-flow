@@ -1,7 +1,7 @@
 .PHONY : docs
 docs :
 	rm -rf docs/build/
-	sphinx-autobuild -b html --watch my_package/ docs/source/ docs/build/
+	sphinx-autobuild -b html --watch probconcept/ docs/source/ docs/build/
 
 .PHONY : run-checks
 run-checks :

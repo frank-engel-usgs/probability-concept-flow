@@ -8,8 +8,6 @@ from lmfit import Model
 from numpy.core._multiarray_umath import ndarray
 from scipy.stats.distributions import t, chi2
 
-# from surfveltools.common_functions import insert_row_in_dataframe
-
 
 class ProbConceptFit(object):
     """Class to compute the probability concept parameters
