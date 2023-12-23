@@ -164,7 +164,7 @@ class ProbConceptFit(object):
         self.update_parameter("depth", value=self.max_depth)
         self.update_parameter("h", value=self.h)
         logging.info("Initial parameters:")
-        logging.info(self.parameters.pretty_print())
+        logging.info(self.parameters.pretty_print())  # type: ignore[union-attr]
 
         # Compute the fit
         self.compute_fit()
@@ -181,17 +181,17 @@ class ProbConceptFit(object):
         """
         for key, value in kwargs.items():
             if key == "value":
-                self.parameters[parameter].set(value=value)
+                self.parameters[parameter].set(value=value)  # type: ignore[index]
             elif key == "vary":
-                self.parameters[parameter].set(vary=value)
+                self.parameters[parameter].set(vary=value)  # type: ignore[index]
             elif key == "min":
-                self.parameters[parameter].set(min=value)
+                self.parameters[parameter].set(min=value)  # type: ignore[index]
             elif key == "max":
-                self.parameters[parameter].set(max=value)
+                self.parameters[parameter].set(max=value)  # type: ignore[index]
             elif key == "expr":
-                self.parameters[parameter].set(expr=value)
+                self.parameters[parameter].set(expr=value)  # type: ignore[index]
             elif key == "brute_step":
-                self.parameters[parameter].set(brute_step=value)
+                self.parameters[parameter].set(brute_step=value)  # type: ignore[index]
             else:
                 raise Exception
 
@@ -503,7 +503,7 @@ class ProbConceptFit(object):
         """
         alpha = 0.05  # 95% confidence interval
         n = len(self.velocities)  # number of data points
-        p = len(self.fit_results.params)  # number of parameters
+        p = len(self.fit_results.params)  # type: ignore[union-attr]
         dof = max(0, n - p)  # number of degrees of freedom
         tval = t.ppf(1.0 - alpha / 2.0, dof)
         if self.m_stderr is not None:
@@ -520,7 +520,7 @@ class ProbConceptFit(object):
 
         # I am not sure if this is the correct way to compute the p-val. I am presuming that for
         # the chi-square, we only have 1 degree of freedom, since this model is only fitting M.
-        self.fit_chisqprob_pval = chi2.sf(self.fit_results.chisqr, 1)
+        self.fit_chisqprob_pval = chi2.sf(self.fit_results.chisqr, 1)  # type: ignore[union-attr]
 
     def compute_model(self):
         """Compute the modeled velocity profile using probability concept fit
