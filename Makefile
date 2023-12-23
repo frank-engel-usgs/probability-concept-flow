@@ -9,7 +9,7 @@ run-checks :
 	black --check .
 	ruff check .
 	mypy .
-	CUDA_VISIBLE_DEVICES='' pytest -v --color=yes --doctest-modules tests/ my_package/
+	CUDA_VISIBLE_DEVICES='' pytest -v --color=yes --doctest-modules tests/ probconcept/
 
 .PHONY : build
 build :
