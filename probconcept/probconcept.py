@@ -11,78 +11,79 @@ from scipy.stats.distributions import chi2, t
 class ProbConceptFit(object):
     """Class to compute the probability concept parameters
 
-        Attributes
-        ----------
-        depths : ndarray
-            Measured depths.
-        velocities : ndarray
-            Measured velocities.
-        uncertainties : ndarray
-            Measured uncertainties.
-        max_depth : float
-            The maximum depth of water at the velocity profile.
-        max_velocity : float
-            The maximum velocity in the velocity profile.
-        surface_velocity : float
-            The velocity at the water surface.
-        depth_flag : bool
-            Indicates if the max_depth is larger than the largest depth supplied in depths.
-        surface_flag : bool
-            Indicates if the maximum velocity occurs at the surface.
-        use_measured_uncertainties_flag : bool
-            Indicates whether to use measured uncertainties in the analysis.
-        use_surface_velocity_flag : bool
-            Indicates whether to use surface velocity in the analysis.
-        max_velocity_index : integer
-            Logical index into depths/velocities indicating max velocity.
-        h : float
-            Distance from the water surface to the maximum velocity.
-        h_D : float
-            Relative distance from the water surface to the maximum velocity (h/D).
-        usurf_umax : float
-            Ratio of surface velocity to maximum velocity (Usurf/Umax).
-        m : float
-            Parameter from the probability concept, related to phi.
-        m_stderr : float
-            Standard error of the m parameter.
-        phi : float
-            Parameter describing the relationship between the velocity profile and maximum velocity.
-        phi_stderr : float
-            Standard error of the phi parameter.
-        gamma : float
-            Parameter describing the uncertainty in velocity.
-        gamma_stderr : float
-            Standard error of the gamma parameter.
+    Attributes
+    ----------
+    depths : ndarray
+        Measured depths.
+    velocities : ndarray
+        Measured velocities.
+    uncertainties : ndarray
+        Measured uncertainties.
+    max_depth : float
+        The maximum depth of water at the velocity profile.
+    max_velocity : float
+        The maximum velocity in the velocity profile.
+    surface_velocity : float
+        The velocity at the water surface.
+    depth_flag : bool
+        Indicates if the max_depth is larger than the largest depth supplied in depths.
+    surface_flag : bool
+        Indicates if the maximum velocity occurs at the surface.
+    use_measured_uncertainties_flag : bool
+        Indicates whether to use measured uncertainties in the analysis.
+    use_surface_velocity_flag : bool
+        Indicates whether to use surface velocity in the analysis.
+    max_velocity_index : integer
+        Logical index into depths/velocities indicating max velocity.
+    h : float
+        Distance from the water surface to the maximum velocity.
+    h_D : float
+        Relative distance from the water surface to the maximum velocity (h/D).
+    usurf_umax : float
+        Ratio of surface velocity to maximum velocity (Usurf/Umax).
+    m : float
+        Parameter from the probability concept, related to phi.
+    m_stderr : float
+        Standard error of the m parameter.
+    phi : float
+        Parameter describing the relationship between the velocity profile and maximum velocity.
+    phi_stderr : float
+        Standard error of the phi parameter.
+    gamma : float
+        Parameter describing the uncertainty in velocity.
+    gamma_stderr : float
+        Standard error of the gamma parameter.
 
-        fit_coefficients : ndarray
-            Coefficients returned by scipy.curve_fit.
-        fit_max_velocity : float
-            Maximum velocity fitted by nonlinear regression.
-        fit_pcov : ndarray
-            Covariance matrix returned by scipy.curve_fit.
-        fit_regression_error : float
-            Standard error of the regression analysis.
-        fit_standard_deviations : ndarray
-            Standard deviations of the regression analysis.
-        fit_rmse : float
-            Root mean square error of the regression.
-        fit_r2 : float
-            R-squared of the regression.
-        fit_x : ndarray
-            Output velocities which can be used to plot the fit results.
-        fit_y : ndarray
-            Output depths which can be used to plot the fit results.
-        fit_y_95_ci_lower : ndarray
-            Lower bound of the 95% confidence interval of the fit.
-        fit_y_95_ci_upper : ndarray
-            Upper bound of the 95% confidence interval of the fit.
-        fit_y_regression_error_lower : ndarray
-            Lower bound of the regression error of the fit (standard error applied to model).
-        fit_y_regression_error_upper : ndarray
-            Lower bound of the regression error of the fit (standard error applied to model).
-        fit_95_uncertainty : ndarray
-            Estimated 95% uncertainty of the fitted model parameters (velocity, M, D, h).
-        """
+    fit_coefficients : ndarray
+        Coefficients returned by scipy.curve_fit.
+    fit_max_velocity : float
+        Maximum velocity fitted by nonlinear regression.
+    fit_pcov : ndarray
+        Covariance matrix returned by scipy.curve_fit.
+    fit_regression_error : float
+        Standard error of the regression analysis.
+    fit_standard_deviations : ndarray
+        Standard deviations of the regression analysis.
+    fit_rmse : float
+        Root mean square error of the regression.
+    fit_r2 : float
+        R-squared of the regression.
+    fit_x : ndarray
+        Output velocities which can be used to plot the fit results.
+    fit_y : ndarray
+        Output depths which can be used to plot the fit results.
+    fit_y_95_ci_lower : ndarray
+        Lower bound of the 95% confidence interval of the fit.
+    fit_y_95_ci_upper : ndarray
+        Upper bound of the 95% confidence interval of the fit.
+    fit_y_regression_error_lower : ndarray
+        Lower bound of the regression error of the fit (standard error applied to model).
+    fit_y_regression_error_upper : ndarray
+        Lower bound of the regression error of the fit (standard error applied to model).
+    fit_95_uncertainty : ndarray
+        Estimated 95% uncertainty of the fitted model parameters (velocity, M, D, h).
+    """
+
     def __init__(self):
         self.depths = np.zeros(shape=(1,))
         self.velocities = np.zeros(shape=(1,))
@@ -223,9 +224,7 @@ class ProbConceptFit(object):
             self.max_velocity_index = self.velocities.argmax()
         else:
             self.max_velocity = max_velocity
-            self.max_velocity_index = (
-                np.abs(self.velocities - max_velocity)
-            ).argmin()
+            self.max_velocity_index = (np.abs(self.velocities - max_velocity)).argmin()
         if self.max_velocity_index != 0:
             self.surface_flag = False
         else:
@@ -269,13 +268,7 @@ class ProbConceptFit(object):
             max_velocity
             / m
             * np.log(
-                1
-                + (
-                    (np.exp(m) - 1)
-                    * depth_i
-                    / (depth - h)
-                    * np.exp(1 - depth_i / (depth - h))
-                )
+                1 + ((np.exp(m) - 1) * depth_i / (depth - h) * np.exp(1 - depth_i / (depth - h)))
             )
         )
 
@@ -301,15 +294,7 @@ class ProbConceptFit(object):
         return (
             max_velocity
             / m
-            * np.log(
-                1
-                + (
-                    (np.exp(m) - 1)
-                    * depth_i
-                    / depth
-                    * np.exp(1 - depth_i / depth)
-                )
-            )
+            * np.log(1 + ((np.exp(m) - 1) * depth_i / depth * np.exp(1 - depth_i / depth)))
         )
 
     @staticmethod
@@ -335,13 +320,7 @@ class ProbConceptFit(object):
             max_velocity
             / m
             * np.log(
-                1
-                + (
-                    (np.exp(m) - 1)
-                    * depth_i
-                    / depth
-                    * np.exp((depth - depth_i) / (depth - h))
-                )
+                1 + ((np.exp(m) - 1) * depth_i / depth * np.exp((depth - depth_i) / (depth - h)))
             )
         )
 
@@ -365,15 +344,7 @@ class ProbConceptFit(object):
         return (
             usurf
             * m
-            * (
-                np.log(
-                    1
-                    + (np.exp(m) - 1)
-                    * 1
-                    / (1 - h / depth)
-                    * np.exp(1 - 1 / (1 - h / depth))
-                )
-            )
+            * (np.log(1 + (np.exp(m) - 1) * 1 / (1 - h / depth) * np.exp(1 - 1 / (1 - h / depth))))
             ** -1
         )
 
@@ -394,13 +365,7 @@ class ProbConceptFit(object):
         return (
             1
             / m
-            * np.log(
-                1
-                + (np.exp(m) - 1)
-                * 1
-                / (1 - h / depth)
-                * np.exp(1 - 1 / (1 - h / depth))
-            )
+            * np.log(1 + (np.exp(m) - 1) * 1 / (1 - h / depth) * np.exp(1 - 1 / (1 - h / depth)))
         )
 
     @staticmethod
@@ -431,9 +396,7 @@ class ProbConceptFit(object):
         -------
         float
         """
-        return np.log(
-            1 + (np.exp(m) - 1) * (1 / (1 - h_D)) * np.exp(1 - 1 / (1 - h_D))
-        )
+        return np.log(1 + (np.exp(m) - 1) * (1 / (1 - h_D)) * np.exp(1 - 1 / (1 - h_D)))
 
     def compute_fit(self):
         """Compute the Probability Concept fit using lmfit and the object class attributes
@@ -455,9 +418,7 @@ class ProbConceptFit(object):
                     self.velocities, self.parameters, depth_i=self.depths
                 )
         except ValueError as err:
-            self.fit_results = self.model.fit(
-                self.velocities, self.parameters, depth_i=self.depths
-            )
+            self.fit_results = self.model.fit(self.velocities, self.parameters, depth_i=self.depths)
             print(
                 f"There was a numerical issue with the model computation using uncertainties as weights. "
                 f"Fitting model without uncertainties incorporated.\n"
@@ -467,23 +428,15 @@ class ProbConceptFit(object):
         self.m_stderr = self.fit_results.params["m"].stderr
 
         self.h_D = self.h / self.max_depth
-        self.usurf_umax = self.solve_usurf_umax_ratio(
-            self.m, self.h, self.max_depth
-        )
+        self.usurf_umax = self.solve_usurf_umax_ratio(self.m, self.h, self.max_depth)
 
         self.phi = self._phi(self.m)
         if self.m_stderr is not None:
-            self.phi_stderr = np.abs(
-                self.phi - self._phi(self.m - self.m_stderr)
-            )
-            self.gamma_stderr = np.abs(
-                self.gamma - self._gamma(self.m - self.m_stderr, self.h_D)
-            )
+            self.phi_stderr = np.abs(self.phi - self._phi(self.m - self.m_stderr))
+            self.gamma_stderr = np.abs(self.gamma - self._gamma(self.m - self.m_stderr, self.h_D))
 
         self.gamma = self._gamma(self.m, self.h_D)
-        logging.info(
-            f"gamma: {self.gamma:.3f} || std err: {self.gamma_stderr:.3f}"
-        )
+        logging.info(f"gamma: {self.gamma:.3f} || std err: {self.gamma_stderr:.3f}")
 
         # Parse the results dataframe and reshape/modify to show what we want in
         # the velocity profile results table
