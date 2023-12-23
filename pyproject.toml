@@ -7,7 +7,6 @@ build-backend = "setuptools.build_meta"
 name = "probconcept"
 dynamic = ["version"]
 readme = "README.md"
-summary = "A python module for computing the probability concept (entropy) parameters for computing open channel flow"
 classifiers = [
     "Intended Audience :: Science/Research",
     "Development Status :: 3 - Alpha",
