@@ -15,8 +15,8 @@ overview
 
 CHANGELOG
 CONTRIBUTING
-License <https://raw.githubusercontent.com/allenai/probconcept/main/LICENSE>
-GitHub Repository <https://github.com/frank-engel-usgs/probconcept>
+License <https://raw.githubusercontent.com/frank-engel-usgs/probability-concept-flow/main/LICENSE>
+GitHub Repository <https://github.com/frank-engel-usgs/probability-concept-flow>
 ```
 
 ## Indices and tables
