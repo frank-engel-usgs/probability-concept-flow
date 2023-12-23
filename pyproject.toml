@@ -30,6 +30,7 @@ dependencies = [
     "lmfit>=1.2.2",
     "pybroom>=0.2",
     "scipy>=1.11.4",
+    "pandas>=2.1.4",
 ]
 license = {file = "LICENSE"}
 
