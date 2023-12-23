@@ -1,11 +1,9 @@
 import logging
 import warnings
-
 import lmfit
 import numpy as np
 import pybroom as br
 from lmfit import Model
-from numpy.core._multiarray_umath import ndarray
 from scipy.stats.distributions import t, chi2
 
 

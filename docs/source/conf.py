@@ -7,7 +7,6 @@
 import logging
 import os
 import sys
-from datetime import datetime
 
 # -- Path setup --------------------------------------------------------------
 
