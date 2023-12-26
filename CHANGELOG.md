@@ -8,3 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ## [v0.1.0](https://github.com/frank-engel-usgs/probconcept/releases/tag/v0.1.0) - 2023-12-26
+
+### FIXED
+* This is the initial release
